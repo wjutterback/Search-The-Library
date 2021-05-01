@@ -1,10 +1,14 @@
 const router = require('express').Router();
-const booksController = require('../../controllers/controller');
-const db = require('../../models/book');
+const booksController = require('../../controllers/booksController');
 
 // Matches with "/api/books"
-router.route('/').get(function (req, res) {
-  db.Book.find(req.query).then((res) => console.log(res));
-});
+router.route('/').get(booksController.findAll).post(booksController.create);
+
+// Matches with "/api/books/:id"
+router
+  .route('/:id')
+  .get(booksController.findById)
+  .put(booksController.update)
+  .delete(booksController.remove);
 
 module.exports = router;
