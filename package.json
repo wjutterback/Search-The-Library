@@ -12,7 +12,7 @@
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
-    "build": "cd client && npm install && npm run build",
+    "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
@@ -32,7 +32,6 @@
   "dependencies": {
     "concurrently": "^6.0.2",
     "express": "^4.17.1",
-    "if-env": "^1.0.4",
     "mongoose": "^5.12.7"
   }
 }
