@@ -7,11 +7,15 @@ import { List, ListItem } from '../components/List';
 function Saved() {
   const [books, setBooks] = useState([]);
 
-  function loadBooks(book) {
-    API.getBooks(book)
+  useEffect(() => {
+    loadBooks();
+  }, []);
+
+  function loadBooks() {
+    API.getBooks()
       .then((res) => {
-        console.log(res);
-        setBooks(res);
+        console.log(res.data);
+        setBooks(res.data);
       })
       .catch((err) => console.log(err));
   }
@@ -20,7 +24,7 @@ function Saved() {
     if (link) {
       return (
         <img
-          src={link.thumbnail}
+          src={link}
           alt='Book Thumbnail'
           className='float-left inline-block ml-3 mr-3'
         ></img>
@@ -47,43 +51,38 @@ function Saved() {
         {books.length ? (
           <List>
             {books.map((book) => (
-              <ListItem key={book.id}>
+              <ListItem key={book._id}>
                 <div style={{ position: 'relative', float: 'right' }}>
                   <a
                     role='button'
                     target='_blank'
-                    href={book.volumeInfo.infoLink}
+                    href={book.link}
                     rel='noreferrer'
                     className='btn btn-info mr-1'
                   >
                     View
                   </a>
-                  <a
-                    role='button'
-                    target='_blank'
-                    rel='noreferrer'
+                  <button
                     className='btn btn-success'
-                    href='/saved'
+                    onClick={() => {
+                      deleteBook(book._id);
+                    }}
                   >
                     Delete
-                  </a>
+                  </button>
                 </div>
                 <Row>
                   <div className='col-md-6'>
                     <div className='float-left'>
-                      <a
-                        target='_blank'
-                        rel='noreferrer'
-                        href={book.volumeInfo.infoLink}
-                      >
+                      <a target='_blank' rel='noreferrer' href={book.link}>
                         <strong>
-                          <p>{book.volumeInfo.title}</p>
+                          <p>{book.title}</p>
                           <p style={{ fontSize: '13px' }}>
                             Written By
-                            {book.volumeInfo.authors.map((author) => {
+                            {book.authors.map((author) => {
                               if (
-                                book.volumeInfo.authors.indexOf(author) !==
-                                book.volumeInfo.authors.length - 1
+                                book.authors.indexOf(author) !==
+                                book.authors.length - 1
                               ) {
                                 return ` ${author},`;
                               } else return ` ${author}.`;
@@ -96,16 +95,12 @@ function Saved() {
                 </Row>
                 <Row>
                   <div className='col-md-12 mt-5'>
-                    <a
-                      target='_blank'
-                      rel='noreferrer'
-                      href={book.volumeInfo.infoLink}
-                    >
-                      {renderThumbnail(book.volumeInfo.imageLinks)}
+                    <a target='_blank' rel='noreferrer' href={book.link}>
+                      {renderThumbnail(book.image)}
                     </a>
 
                     <p></p>
-                    {book.volumeInfo.description}
+                    {book.description}
                   </div>
                 </Row>
               </ListItem>
