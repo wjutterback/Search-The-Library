@@ -13,6 +13,7 @@ function App() {
         <Switch>
           <Route exact path={'/'} component={Books} />
           <Route exact path={'/saved'} component={Saved} />
+          <Route path={'*'} component={Books} />
         </Switch>
         <div></div>
       </Router>
