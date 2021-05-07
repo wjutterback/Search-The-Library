@@ -32,7 +32,6 @@
   "dependencies": {
     "concurrently": "^6.0.2",
     "express": "^4.17.1",
-    "if-env": "^1.0.4",
     "mongoose": "^5.12.7"
   }
 }
