@@ -11,7 +11,7 @@
 https://search-the-library.herokuapp.com/
 
 ## ![App Preview](/assets/preview.PNG)
-## ![App Preview2](/assets/preview2.PNG
+## ![App Preview2](/assets/preview2.PNG)
 
 ## Table of Contents
 
