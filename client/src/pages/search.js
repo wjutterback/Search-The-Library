@@ -8,19 +8,18 @@ import { Input, FormBtn } from '../components/Form';
 function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([]);
-  const [searchInput, setSearchInput] = useState({});
+  const [searchInput, setSearchInput] = useState('');
 
   // Load all books and store them with setBooks
-  useEffect(() => {}, []);
-
-  // Loads all books and sets them to books
   function loadBooks(book) {
-    API.getBooks(book)
+    API.searchGoogle(book)
       .then((res) => {
-        console.log('before books', books);
-        console.log(res.data.items);
+        let i = 0;
+        res.data.items.forEach((item) => {
+          Object.assign(item, { index: i });
+          i++;
+        });
         setBooks(res.data.items);
-        console.log('books', books);
       })
       .catch((err) => console.log(err));
   }
@@ -31,8 +30,6 @@ function Books() {
     setSearchInput(search);
   }
 
-  // When the form is submitted, use the API.saveBook method to save the book data
-  // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
     loadBooks(searchInput);
@@ -47,6 +44,18 @@ function Books() {
         ></img>
       );
     } else return;
+  }
+  function saveBook(book) {
+    const bookData = {
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors,
+      description: book.volumeInfo.description,
+      image: book.volumeInfo.imageLinks.thumbnail,
+      link: book.volumeInfo.infoLink,
+    };
+    API.saveBook(bookData).then((res) => {
+      document.getElementById(`${book.index}`).textContent = 'Saved!';
+    });
   }
 
   return (
@@ -83,7 +92,15 @@ function Books() {
                   >
                     View
                   </a>
-                  <button className='btn btn-success'>Save</button>
+                  <button
+                    id={book.index}
+                    className='btn btn-success'
+                    onClick={() => {
+                      saveBook(books[book.index]);
+                    }}
+                  >
+                    Save
+                  </button>
                 </div>
                 <Row>
                   <div className='col-md-6'>

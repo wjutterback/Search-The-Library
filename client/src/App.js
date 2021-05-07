@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import Books from './pages/search';
+import Saved from './pages/saved';
 
 function App() {
   return (
@@ -10,9 +11,8 @@ function App() {
       <Nav />
       <Router>
         <Switch>
-          <Route exact path={'/'}>
-            <Books />
-          </Route>
+          <Route exact path={'/'} component={Books} />
+          <Route exact path={'/saved'} component={Saved} />
         </Switch>
         <div></div>
       </Router>
