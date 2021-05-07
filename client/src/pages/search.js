@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import API from '../utils/API';
 import { Row, Container } from '../components/Grid';
