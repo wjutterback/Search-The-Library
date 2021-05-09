@@ -63,7 +63,7 @@ function Saved() {
                     View
                   </a>
                   <button
-                    className='btn btn-success'
+                    className='btn btn-danger'
                     onClick={() => {
                       deleteBook(book._id);
                     }}
