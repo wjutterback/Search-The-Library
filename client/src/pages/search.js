@@ -114,7 +114,7 @@ function Books() {
                           <p>{book.volumeInfo.title}</p>
                           <p style={{ fontSize: '13px' }}>
                             Written By
-                            {book.volumeInfo.authors.map((author) => {
+                            {book.volumeInfo.authors?.map((author) => {
                               if (
                                 book.volumeInfo.authors.indexOf(author) !==
                                 book.volumeInfo.authors.length - 1
